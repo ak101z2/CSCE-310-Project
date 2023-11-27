@@ -1,0 +1,27 @@
+.tamuCSC{
+    text-align: center;
+    margin-top: 5%;
+}
+
+body {
+    background-color: #333;
+}
+
+.buttons {
+    margin-top: 5%;
+    text-align: center;
+}
+
+a:link, a:visited {
+    background-color: maroon;
+    color: white;
+    padding: 24px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 50px;
+  }
+  
+  a:hover, a:active {
+    background-color: maroon;
+  }
