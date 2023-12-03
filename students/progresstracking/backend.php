@@ -1,7 +1,4 @@
 <?php
-  $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-?>
-<?php
     include 'db_connection.php';
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,7 +10,7 @@
             $student_UIN = $_POST['student'];
             $sql = "INSERT INTO `track` (`Program_Num`, `UIN`) VALUES ('$program_num', '$student_UIN');";
             $result = $conn->query($sql);
-            header("Location: progresstracking.php?student_UIN=$selectedStudentUIN&UIN=$UIN");
+            header("Location: progresstracking.php?UIN=$selectedStudentUIN");
             exit();
         } 
 
@@ -26,7 +23,7 @@
     
             $sqlClass = "INSERT INTO `class_enrollment` (`UIN`, `Class_ID`, `Status`, `Semester`, `Year`) VALUES ('$selectedStudentUIN', '$class', '$status', '$semester', '$year');";
             $resultClass = $conn->query($sqlClass);
-            header("Location: progresstracking.php?student_UIN=$selectedStudentUIN&UIN=$UIN");
+            header("Location: progresstracking.php?UIN=$selectedStudentUIN");
             exit();
         }
     
@@ -42,7 +39,7 @@
             $sqlCertification = "INSERT INTO `cert_enrollment` (`UIN`, `Cert_ID`, `Status`, `Training_Status`, `Program_Num`, `Semester`, `YEAR`) 
                      VALUES ('$selectedStudentUIN', '$certification', '$statusCert', '$trainingStatus', '$program_num', '$semesterCert', '$yearCert');";
             $resultCertification = $conn->query($sqlCertification);
-            header("Location: progresstracking.php?student_UIN=$selectedStudentUIN&UIN=$UIN");
+            header("Location: progresstracking.php?UIN=$selectedStudentUIN");
             exit();
         }
     
@@ -54,7 +51,7 @@
     
             $sqlInternship = "INSERT INTO `intern_app` (`UIN`, `Intern_ID`, `Status`, `Year`) VALUES ('$selectedStudentUIN', '$internship', '$statusInternship', '$yearInternship');";
             $resultInternship = $conn->query($sqlInternship);
-            header("Location: progresstracking.php?student_UIN=$selectedStudentUIN&UIN=$UIN");
+            header("Location: progresstracking.php?UIN=$selectedStudentUIN");
             exit();
         }
 
@@ -514,7 +511,7 @@
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
                 $selectedStudentData = $result->fetch_assoc();
-                header("Location: progresstracking.php?student_UIN=$selectedStudentUIN&UIN=$UIN");
+                header("Location: progresstracking.php?UIN=$selectedStudentUIN");
                 exit();
             } else {
                 echo "Error: Student not found.";

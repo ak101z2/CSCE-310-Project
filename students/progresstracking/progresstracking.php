@@ -26,7 +26,7 @@
       <li style="float:right"><a href="../../login.php">Logout</a></li>
     </ul>
 
-    <form action="backend.php?UIN=<?php echo $UIN; ?>" method="post">
+    <form action="backend.php" method="post">
       <h1> Progress Tracking </h1>
         <label for="student">Student:</label>
           <select name="student" id="student">
@@ -37,7 +37,7 @@
       <br>
       <br>
       <?php
-        if (isset($_GET['student_UIN'])) {
+        if (isset($_GET['UIN'])) {
             echo '<div class="column">';
             // __________________________________________RECORD__________________________________________
             echo '    <h2>Record Student Progress</h2>';
@@ -285,7 +285,6 @@
             echo '        <label for="view">Type:</label>';
             echo '            <select name="view" id="viewSelect">';
             echo '                <option value=""></option>';
-            echo '                <option value="admin">Admin</option>';
             echo '                <option value="student">Student</option>';
             echo '            </select>';
             echo '        <br>';
