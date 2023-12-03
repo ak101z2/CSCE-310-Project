@@ -84,10 +84,10 @@
             echo '        <br>';
             echo '        <label for="certificationStatus">Status:</label>';
             echo '            <select name="certificationStatus" id="certificationStatusSelect">';
-            echo '                <option value="notenrolled">Not Registered</option>';
-            echo '                <option value="notenrolled">Registered</option>';
-            echo '                <option value="inprogress">Passed</option>';
-            echo '                <option value="completed">Failed</option>';
+            echo '                <option value="notregistered">Not Registered</option>';
+            echo '                <option value="registered">Registered</option>';
+            echo '                <option value="passed">Passed</option>';
+            echo '                <option value="failed">Failed</option>';
             echo '            </select>';
             echo '        <br>';
             echo '        <label for="certificationTrainingStatus">Training Status:</label>';

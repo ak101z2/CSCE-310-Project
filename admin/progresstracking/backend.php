@@ -188,24 +188,321 @@
                     }
                     echo "</table>";
                 }
+
+                $q3 = "SELECT
+                    cert.Name AS CertificationName,
+                    COALESCE(COUNT(DISTINCT ce.UIN), 0) AS TotalStudents,
+                    COALESCE(SUM(ce.Training_Status = 'notstarted'), 0) AS NotStartedCount,
+                    COALESCE(SUM(ce.Training_Status = 'ongoing'), 0) AS OngoingCount,
+                    COALESCE(SUM(ce.Training_Status = 'completed'), 0) AS CompletedCount,
+                    COALESCE(SUM(ce.Status = 'notregistered'), 0) AS NotRegisteredCount,
+                    COALESCE(SUM(ce.Status = 'registered'), 0) AS RegisteredCount,
+                    COALESCE(SUM(ce.Status = 'passed'), 0) AS PassedCount,
+                    COALESCE(SUM(ce.Status = 'failed'), 0) AS FailedCount
+                FROM certification cert
+                LEFT JOIN cert_enrollment ce ON cert.Cert_ID = ce.Cert_ID
+                GROUP BY cert.Cert_ID, cert.Name";
+                $resultCertifications = $conn->query($q3);
+                if ($resultCertifications) {
+                    echo "<h2>Certifications</h2>";
+                    echo "<table border='1'>
+                        <tr>
+                            <th>Certification Name</th>
+                            <th>Total Students</th>
+                            <th>Not Started Training</th>
+                            <th>Ongoing Training</th>
+                            <th>Completed Training</th>
+                            <th>Not Registered for Exam</th>
+                            <th>Registered for Exam</th>
+                            <th>Passed Exam</th>
+                            <th>Failed Exam</th>
+                        </tr>";
+                    while ($row = $resultCertifications->fetch_assoc()) {
+                        $certificationName = $row['CertificationName'];
+                        $totalStudents = $row['TotalStudents'];
+                        $notStartedCount = $row['NotStartedCount'];
+                        $ongoingCount = $row['OngoingCount'];
+                        $completedCount = $row['CompletedCount'];
+                        $notRegisteredCount = $row['NotRegisteredCount'];
+                        $registeredCount = $row['RegisteredCount'];
+                        $passedCount = $row['PassedCount'];
+                        $failedCount = $row['FailedCount'];
+                        echo "<tr>
+                                <td>$certificationName</td>
+                                <td>$totalStudents</td>
+                                <td>$notStartedCount</td>
+                                <td>$ongoingCount</td>
+                                <td>$completedCount</td>
+                                <td>$notRegisteredCount</td>
+                                <td>$registeredCount</td>
+                                <td>$passedCount</td>
+                                <td>$failedCount</td>
+                            </tr>";
+                    }
+                    echo "</table>";
+                }
                 
+                $q4 = "SELECT
+                    i.Name AS InternshipName,
+                    i.Is_Gov AS IsGovernment,
+                    COALESCE(SUM(ia.Status = 'applied'), 0) AS AppliedCount,
+                    COALESCE(SUM(ia.Status = 'rejected'), 0) AS RejectedCount,
+                    COALESCE(SUM(ia.Status = 'accepted'), 0) AS AcceptedCount
+                FROM internship i
+                LEFT JOIN intern_app ia ON i.Intern_ID = ia.Intern_ID
+                GROUP BY i.Intern_ID, i.Name, i.Is_Gov";
+                $resultInternships = $conn->query($q4);
+                if ($resultInternships) {
+                    echo "<h2>Internships</h2>";
+                    echo "<table border='1'>
+                        <tr>
+                            <th>Internship Name</th>
+                            <th>Is Government</th>
+                            <th>Applied Count</th>
+                            <th>Rejected Count</th>
+                            <th>Accepted Count</th>
+                        </tr>";
+
+                    while ($row = $resultInternships->fetch_assoc()) {
+                        $internshipName = $row['InternshipName'];
+                        $isGovernment = $row['IsGovernment'];
+                        $appliedCount = $row['AppliedCount'];
+                        $rejectedCount = $row['RejectedCount'];
+                        $acceptedCount = $row['AcceptedCount'];
+
+                        echo "<tr>
+                                <td>$internshipName</td>
+                                <td>$isGovernment</td>
+                                <td>$appliedCount</td>
+                                <td>$rejectedCount</td>
+                                <td>$acceptedCount</td>
+                            </tr>";
+                    }
+                    echo "</table>";
+                }
                 
+                $q5 = "SELECT Gender, Hispanic_Latino, Race, First_Generation, Major
+                    FROM college_student";
+                $resultStudents = $conn->query($q5);
+                if ($resultStudents) {
+                    echo "<h2>College Students Information</h2>";
+                    echo "<table border='1'>
+                        <tr>
+                            <th>Gender</th>
+                            <th>Hispanic/Latino</th>
+                            <th>Race</th>
+                            <th>First Generation</th>
+                            <th>Major</th>
+                        </tr>";
+                    while ($row = $resultStudents->fetch_assoc()) {
+                        $gender = $row['Gender'];
+                        $hispanicLatino = $row['Hispanic_Latino'];
+                        $race = $row['Race'];
+                        $firstGeneration = $row['First_Generation'];
+                        $major = $row['Major'];
+                        echo "<tr>
+                                <td>$gender</td>
+                                <td>$hispanicLatino</td>
+                                <td>$race</td>
+                                <td>$firstGeneration</td>
+                                <td>$major</td>
+                            </tr>";
+                    }
+                    echo "</table>";
+                }
+
                 echo "<br>";
                 $previousPage = $_SERVER['HTTP_REFERER'];
                 echo "<form action='$previousPage' method='post'>
                         <button type='submit'>Go Back</button>
                     </form>";
-
-                
-                
                 exit();
-            } else if ($_POST['view'] == 'admin') {
-                $selectedStudentUIN = $_POST['student'];
-            }
+            } 
             
-            $internship = $_POST['deleteInternship'];
-            $sql = "DELETE FROM `intern_app` WHERE `UIN` = '$selectedStudentUIN' AND `Intern_ID` = '$internship';";
-            $result = $conn->query($sql);
+            else if ($_POST['view'] == 'student') {
+                $selectedStudentUIN = $_POST['student'];
+                echo "<title>Student Report</title>";
+                echo "<h1>Student Report for Student (UIN: $selectedStudentUIN)</h1>";
+
+
+                $qProgramsForStudent = "SELECT p.Name AS ProgramName
+                                        FROM programs p
+                                        JOIN track t ON p.Program_Num = t.Program_Num AND t.UIN = '$selectedStudentUIN'";
+                $resultProgramsForStudent = $conn->query($qProgramsForStudent);
+                echo "<h2>Programs</h2>";
+                echo "<table border='1'>
+                    <tr>
+                        <th>Program Name</th>
+                    </tr>";
+                while ($row = $resultProgramsForStudent->fetch_assoc()) {
+                    $programName = $row['ProgramName'];
+                    echo "<tr>
+                            <td>$programName</td>
+                        </tr>";
+                }
+                echo "</table>";
+                
+
+                $qClassesForStudent = "SELECT
+                    c.Name AS ClassName,
+                    c.Type AS ClassType,
+                    COALESCE(SUM(ce.Status = 'notenrolled'), 0) AS NotEnrolledCount,
+                    COALESCE(SUM(ce.Status = 'enrolled'), 0) AS EnrolledCount,
+                    COALESCE(SUM(ce.Status = 'completed'), 0) AS CompletedCount
+                FROM classes c
+                JOIN class_enrollment ce ON c.Class_ID = ce.Class_ID AND ce.UIN = '$selectedStudentUIN'
+                GROUP BY c.Class_ID, c.Name, c.Type";
+                $resultClassesForStudent = $conn->query($qClassesForStudent);
+                echo "<h2>Classes</h2>";
+                echo "<table border='1'>
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Class Type</th>
+                        <th>Not Enrolled</th>
+                        <th>Enrolled</th>
+                        <th>Completed</th>
+                    </tr>";
+                while ($row = $resultClassesForStudent->fetch_assoc()) {
+                    $className = $row['ClassName'];
+                    $classType = $row['ClassType'];
+                    $notEnrolledCount = $row['NotEnrolledCount'];
+                    $enrolledCount = $row['EnrolledCount'];
+                    $completedCount = $row['CompletedCount'];
+                    echo "<tr>
+                            <td>$className</td>
+                            <td>$classType</td>
+                            <td>$notEnrolledCount</td>
+                            <td>$enrolledCount</td>
+                            <td>$completedCount</td>
+                        </tr>";
+                }
+                echo "</table>";
+
+
+                $qCertificationsForStudent = "SELECT
+                    cert.Name AS CertificationName,
+                    COALESCE(SUM(ce.Training_Status = 'notstarted'), 0) AS NotStartedCount,
+                    COALESCE(SUM(ce.Training_Status = 'ongoing'), 0) AS OngoingCount,
+                    COALESCE(SUM(ce.Training_Status = 'completed'), 0) AS CompletedCount,
+                    COALESCE(SUM(ce.Status = 'notregistered'), 0) AS NotRegisteredCount,
+                    COALESCE(SUM(ce.Status = 'registered'), 0) AS RegisteredCount,
+                    COALESCE(SUM(ce.Status = 'passed'), 0) AS PassedCount,
+                    COALESCE(SUM(ce.Status = 'failed'), 0) AS FailedCount
+                FROM certification cert
+                JOIN cert_enrollment ce ON cert.Cert_ID = ce.Cert_ID AND ce.UIN = '$selectedStudentUIN'
+                GROUP BY cert.Cert_ID, cert.Name";
+                $resultCertificationsForStudent = $conn->query($qCertificationsForStudent);
+                echo "<h2>Certifications</h2>";
+                echo "<table border='1'>
+                    <tr>
+                        <th>Certification Name</th>
+                        <th>Not Started Training</th>
+                        <th>Ongoing Training</th>
+                        <th>Completed Training</th>
+                        <th>Not Registered for Exam</th>
+                        <th>Registered for Exam</th>
+                        <th>Passed Exam</th>
+                        <th>Failed Exam</th>
+                    </tr>";
+                while ($row = $resultCertificationsForStudent->fetch_assoc()) {
+                    $certificationName = $row['CertificationName'];
+                    $notStartedCount = $row['NotStartedCount'];
+                    $ongoingCount = $row['OngoingCount'];
+                    $completedCount = $row['CompletedCount'];
+                    $notRegisteredCount = $row['NotRegisteredCount'];
+                    $registeredCount = $row['RegisteredCount'];
+                    $passedCount = $row['PassedCount'];
+                    $failedCount = $row['FailedCount'];
+                    echo "<tr>
+                            <td>$certificationName</td>
+                            <td>$notStartedCount</td>
+                            <td>$ongoingCount</td>
+                            <td>$completedCount</td>
+                            <td>$notRegisteredCount</td>
+                            <td>$registeredCount</td>
+                            <td>$passedCount</td>
+                            <td>$failedCount</td>
+                        </tr>";
+                }
+                echo "</table>";
+
+
+                $qInternshipsForStudent = "SELECT
+                    i.Name AS InternshipName,
+                    i.Is_Gov AS IsGovernment,
+                    COALESCE(SUM(ia.Status = 'applied'), 0) AS AppliedCount,
+                    COALESCE(SUM(ia.Status = 'rejected'), 0) AS RejectedCount,
+                    COALESCE(SUM(ia.Status = 'accepted'), 0) AS AcceptedCount
+                FROM internship i
+                JOIN intern_app ia ON i.Intern_ID = ia.Intern_ID AND ia.UIN = '$selectedStudentUIN'
+                GROUP BY i.Intern_ID, i.Name, i.Is_Gov";
+                $resultInternshipsForStudent = $conn->query($qInternshipsForStudent);
+                echo "<h2>Internships</h2>";
+                echo "<table border='1'>
+                    <tr>
+                        <th>Internship Name</th>
+                        <th>Is Government</th>
+                        <th>Applied Count</th>
+                        <th>Rejected Count</th>
+                        <th>Accepted Count</th>
+                    </tr>";
+                while ($row = $resultInternshipsForStudent->fetch_assoc()) {
+                    $internshipName = $row['InternshipName'];
+                    $isGovernment = $row['IsGovernment'];
+                    $appliedCount = $row['AppliedCount'];
+                    $rejectedCount = $row['RejectedCount'];
+                    $acceptedCount = $row['AcceptedCount'];
+                    echo "<tr>
+                            <td>$internshipName</td>
+                            <td>$isGovernment</td>
+                            <td>$appliedCount</td>
+                            <td>$rejectedCount</td>
+                            <td>$acceptedCount</td>
+                        </tr>";
+                }
+                echo "</table>";
+
+
+                $qStudentInformation = "SELECT Gender, Hispanic_Latino, Race, First_Generation, Major
+                        FROM college_student
+                        WHERE UIN = '$selectedStudentUIN'";
+                $resultStudentInformation = $conn->query($qStudentInformation);
+                echo "<h2>College Student Information</h2>";
+                echo "<table border='1'>
+                    <tr>
+                        <th>Gender</th>
+                        <th>Hispanic/Latino</th>
+                        <th>Race</th>
+                        <th>First Generation</th>
+                        <th>Major</th>
+                    </tr>";
+                if ($resultStudentInformation && $resultStudentInformation->num_rows > 0) {
+                    $row = $resultStudentInformation->fetch_assoc();
+                    $gender = $row['Gender'];
+                    $hispanicLatino = $row['Hispanic_Latino'];
+                    $race = $row['Race'];
+                    $firstGeneration = $row['First_Generation'];
+                    $major = $row['Major'];
+                    echo "<tr>
+                            <td>$gender</td>
+                            <td>$hispanicLatino</td>
+                            <td>$race</td>
+                            <td>$firstGeneration</td>
+                            <td>$major</td>
+                        </tr>";
+                } else {
+                    echo "<tr><td colspan='5'>No information found for UIN: $selectedStudentUIN</td></tr>";
+                }
+                echo "</table>";
+
+
+                echo "<br>";
+                $previousPage = $_SERVER['HTTP_REFERER'];
+                echo "<form action='$previousPage' method='post'>
+                        <button type='submit'>Go Back</button>
+                    </form>";
+                exit();
+            }            
         }
 
         if (isset($_POST['student'])) {
