@@ -28,6 +28,11 @@ li a:hover:not(.active) {
 
 body {
     background-color: #333;
+
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start; */
 }
 
 form {
@@ -47,4 +52,13 @@ form {
   justify-content: normal;
   align-items: normal;
   align-content: normal;
+}
+
+.column {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  vertical-align: top;
 }
