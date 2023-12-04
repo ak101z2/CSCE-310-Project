@@ -1,13 +1,13 @@
+<!-- Main program for admin progress tracking -->
+<!-- Get student UIN from url -->
+<!-- Set up navigation links -->
+<!-- Specify backend php form -->
+<!-- If the student is selected, then show following data -->
+<!-- Setup CRUD frontend for courses, certifications, and internships -->
+<!-- Setup frontend for view page to display student report -->
+
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-?>
-
-<?php
-  include 'db_connection.php';
-  $sql = "SELECT First_Name, Last_Name, UIN FROM `users`";
-  $students = $conn->query($sql);
-
-  $conn->close();
 ?>
 
 <html>
@@ -41,13 +41,13 @@
             echo '<div class="column">';
             // __________________________________________RECORD__________________________________________
             echo '    <h2>Record Student Progress</h2>';
-            echo '        <label for="program">Program:</label>';
-            echo '            <select name="program" id="programSelect">';
-                                  include 'record_programs.php';
-            echo '            </select>';
-            echo '        <br>';
-            echo '        <input type="submit" value="Record Program">';
-            echo '        <br><br>';
+            // echo '        <label for="program">Program:</label>';
+            // echo '            <select name="program" id="programSelect">';
+            //                       include 'record_programs.php';
+            // echo '            </select>';
+            // echo '        <br>';
+            // echo '        <input type="submit" value="Record Program">';
+            // echo '        <br><br>';
             echo '        <label for="class">Class:</label>';
             echo '            <select name="class" id="classSelect">';
                                   include 'record_classes.php';
@@ -245,13 +245,13 @@
             echo '<div class="column">';
             echo '    <h2>Delete Student Progress</h2>';
             // __________________________________________Delete__________________________________________
-            echo '        <label for="deleteProgram">Program:</label>';
-            echo '            <select name="deleteProgram" id="deleteProgramSelect">';
-                                  include 'edit_programs.php';
-            echo '            </select>';
-            echo '        <br>';
-            echo '        <input type="submit" value="Remove from Program">';
-            echo '        <br><br>';
+            // echo '        <label for="deleteProgram">Program:</label>';
+            // echo '            <select name="deleteProgram" id="deleteProgramSelect">';
+            //                       include 'edit_programs.php';
+            // echo '            </select>';
+            // echo '        <br>';
+            // echo '        <input type="submit" value="Remove from Program">';
+            // echo '        <br><br>';
             echo '        <label for="deleteClass">Class:</label>';
             echo '            <select name="deleteClass" id="deleteClassSelect">';
                                   include 'edit_classes.php';

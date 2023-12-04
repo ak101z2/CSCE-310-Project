@@ -1,3 +1,7 @@
+<!-- php backend that queries all courses that a current user is enrolled in and outputs them -->
+<!-- Accesses current UIN for student through the _GET method -->
+<!-- SQL select statement to determine Course_ID and Name -->
+
 <?php
 include 'db_connection.php';
 

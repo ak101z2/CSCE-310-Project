@@ -1,3 +1,5 @@
+<!-- Output the given student to be selected based on UIN in the header -->
+
 <?php
 include 'db_connection.php';
 
