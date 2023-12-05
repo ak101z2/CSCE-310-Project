@@ -1,3 +1,7 @@
+<!-- php backend that queries all programs that a current user is enrolled in and outputs them -->
+<!-- Accesses current UIN for student through the _GET method -->
+<!-- SQL select statement to determine Program_Num and Name -->
+
 <?php
 include 'db_connection.php';
 

@@ -1,3 +1,7 @@
+<!-- php backend that queries all internships that a current user is not enrolled in and outputs them -->
+<!-- Accesses current UIN for student through the _GET method -->
+<!-- SQL select statement to determine Intern_ID and Name -->
+
 <?php
 include 'db_connection.php';
 

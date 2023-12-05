@@ -1,3 +1,7 @@
+<!-- php backend that queries all certifications that a current user is not enrolled in and outputs them -->
+<!-- Accesses current UIN for student through the _GET method -->
+<!-- SQL select statement to determine Cert_ID and Name -->
+
 <?php
 include 'db_connection.php';
 

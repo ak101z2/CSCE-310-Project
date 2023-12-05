@@ -1,3 +1,5 @@
+<!-- Output all students in the database that can be selected -->
+
 <?php
 include 'db_connection.php';
 

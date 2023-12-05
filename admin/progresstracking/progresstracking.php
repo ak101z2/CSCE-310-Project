@@ -1,13 +1,13 @@
+<!-- Main program for admin progress tracking -->
+<!-- Get admin UIN from url -->
+<!-- Set up navigation links -->
+<!-- Specify backend php form -->
+<!-- If the student is selected, then show following data -->
+<!-- Setup CRUD frontend for programs, courses, certifications, and internships -->
+<!-- Setup frontend for view page to display student report -->
+
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-?>
-
-<?php
-  include 'db_connection.php';
-  $sql = "SELECT First_Name, Last_Name, UIN FROM `users`";
-  $students = $conn->query($sql);
-
-  $conn->close();
 ?>
 
 <html>
@@ -17,7 +17,7 @@
       <title>Progress Tracking</title>
       <link rel="stylesheet" href="../template.css">
     </head>
-
+    
     <ul>
       <li><a href="../authentication.php?UIN=<?php echo $UIN; ?>">Authentication</a></li>
       <li><a href="../programmanagement.php?UIN=<?php echo $UIN; ?>">Program Management</a></li>
@@ -285,7 +285,7 @@
             echo '        <label for="view">Type:</label>';
             echo '            <select name="view" id="viewSelect">';
             echo '                <option value=""></option>';
-            echo '                <option value="admin">Admin</option>';
+            // echo '                <option value="admin">Admin</option>';
             echo '                <option value="student">Student</option>';
             echo '            </select>';
             echo '        <br>';
