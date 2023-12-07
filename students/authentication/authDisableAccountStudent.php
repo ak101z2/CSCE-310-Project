@@ -7,7 +7,7 @@
     <head>
       <meta charset="UTF-8">
       <title>Authentication</title>
-      <link rel="stylesheet" href="template.css">
+      <link rel="stylesheet" href="authentication.css">
     </head>
 
     <ul>
@@ -18,9 +18,20 @@
       <li style="float:right"><a href="../login.php">Logout</a></li>
     </ul>
 
-    <form action="authentication_backend.php" method="post">
-      <h1> Authentication Page </h1>
+    <form action="#" method="post">
+      <h1> Disable Account </h1>
+
+      <h1> ARE YOU SURE YOU WANT TO DISABLE YOUR ACCOUNT </h1>
     </form>
+    <?php 
+        session_start();
+        $_SESSION['DisableAccount'] = $UIN;
+    ?>
+
+    <div class="buttons">
+      <a href="authDisableAccount_Backend.php?UIN=<?php echo $UIN; ?>">YES</a>
+      <a href="authentication.php?UIN=<?php echo $UIN; ?>">NO</a>
+    </div>
 
   </body>
 </html>
