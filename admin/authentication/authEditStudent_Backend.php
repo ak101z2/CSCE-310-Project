@@ -2,7 +2,7 @@
 $UINGET = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
 session_start();
 if ($_SESSION['User_Type'] != "Admin") {
-  header("Location: ../students/authentication.php?UIN=$UINGET");
+  header("Location: ../.php?UIN=$UINGET");
 }
 
 
@@ -44,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
   }
 
 if ($User_Type == 'Admin') {
-  header("Location: admin/authentication/authentication.php?UIN=$UINGET");
+  header("Location: authentication.php?UIN=$UINGET");
   exit;
 }
 
@@ -72,7 +72,7 @@ SET Gender = '$Gender', Hispanic_Latino = '$Hispanic_Latino', Race = '$Race', US
 WHERE UIN = $UIN"; 
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: admin/authentication/authentication.php?UIN=$UINGET");
+    header("Location: authentication.php?UIN=$UINGET");
     exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

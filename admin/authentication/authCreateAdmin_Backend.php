@@ -2,7 +2,7 @@
 $UINGET = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
 session_start();
 if ($_SESSION['User_Type'] != "Admin") {
-  header("Location: ../students/authentication.php?UIN=$UINGET");
+  header("Location: ../.php?UIN=$UINGET");
 }
 
 
@@ -39,7 +39,7 @@ $sql = "INSERT INTO users (UIN, First_Name, M_Initial, Last_Name, Username, Pass
 VALUES ('$UIN', '$First_Name', '$M_Initial', '$Last_Name', '$Username', '$Passwords', 'Admin', '$Email', '$Discord_Name');";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: admin/authentication/authentication.php?UIN=$UINGET");
+    header("Location: authentication.php?UIN=$UINGET");
     exit;
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

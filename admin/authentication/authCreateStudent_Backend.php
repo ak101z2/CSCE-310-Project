@@ -2,7 +2,7 @@
 $UINGET = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
 session_start();
 if ($_SESSION['User_Type'] != "Admin") {
-  header("Location: ../students/authentication.php?UIN=$UIN");
+  header("Location: ../.php?UIN=$UIN");
 }
 
 $servername = "localhost";
@@ -63,7 +63,7 @@ $sql = "INSERT INTO college_student (UIN, Gender, Hispanic_Latino, Race, US_Citi
 VALUES ('$UIN', '$Gender', '$Hispanic_Latino', '$Race', '$US_Citizen', '$First_Generation', '$DoB', '$GPA', '$Major', '$Minor1', '$Minor2', '$Expected_Graduation', '$School', '$Classification', '$Phone', '$Student_Type');";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: admin/authentication/authentication.php?UIN=$UINGET");
+    header("Location: authentication.php?UIN=$UINGET");
     exit;
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

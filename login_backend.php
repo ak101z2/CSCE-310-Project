@@ -29,12 +29,12 @@ if ($result->num_rows > 0) {
     $UIN = $row['UIN'];
     $_SESSION['UIN'] = $UIN;
     $_SESSION['User_Type'] = 'STUDENT';
-    header("Location: students/authentication/authentication.php?UIN=$UIN");
+    header("Location: /authentication.php?UIN=$UIN");
   } else if ($User_Type == 'Admin' || $User_Type == 'Admin') {
     $UIN = $row['UIN'];
     $_SESSION['UIN'] = $UIN;
     $_SESSION['User_Type'] = 'Admin';
-    header("Location: admin/authentication/authentication.php?UIN=$UIN");
+    header("Location: authentication.php?UIN=$UIN");
   }
 } else {
   header("Location: login.php");
