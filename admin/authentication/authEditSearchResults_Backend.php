@@ -1,6 +1,6 @@
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-  
+  session_start();
   $type = isset($_GET['Type']) ? $_GET['Type'] : ''; // Gets Search Type
   $value = $_POST["$type"];
 
@@ -31,7 +31,7 @@ if ($result->num_rows > 0) {
         header("Location: AuthEditSearchResultsStudent.php?UIN=$UIN&Type=$type");
         exit;
     } else {
-      $_SESSION[$type] = $value;
+        $_SESSION[$type] = $value;
         header("Location: AuthEditSearchResultsAdmin.php?UIN=$UIN&Type=$type");
         exit;
     }

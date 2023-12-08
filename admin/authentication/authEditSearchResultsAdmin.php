@@ -2,6 +2,7 @@
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
   
   $type = isset($_GET['Type']) ? $_GET['Type'] : ''; // Gets Search Type
+  session_start();
   $value = $_SESSION["$type"];
 ?>
 

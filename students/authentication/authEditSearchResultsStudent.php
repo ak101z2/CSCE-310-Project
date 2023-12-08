@@ -1,8 +1,6 @@
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-  
-  $type = isset($_GET['Type']) ? $_GET['Type'] : ''; // Gets Search Type
-  $value = $_SESSION["$type"];
+  $value = $UIN;
 ?>
 
 <html>
@@ -36,12 +34,8 @@
     die("Connection failed: " . $conn->connect_error);
     }
 
-    if ($type == "UIN") {
-        $sql = "SELECT * FROM `users` WHERE UIN = $value";
+    $sql = "SELECT * FROM `users` WHERE UIN = $value";
 
-    } else if ($type == "Username") {
-        $sql = "SELECT * FROM `users` WHERE Username = '$value'";
-    }
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -51,15 +45,6 @@
         exit;
       }
 
-    $sql = "SELECT * FROM `users` WHERE UIN = " . $row['UIN'];
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-    } else {
-        header("Location: authentication.php?UIN=$UIN");
-        exit;
-      }
 ?>
 
 <form action="authEditStudent_Backend.php?UIN=<?php echo $UIN; ?>" method="post">
@@ -113,7 +98,7 @@
     if($row['User_Type'] == "Admin") {
         exit;
     }
-    $sql = "SELECT * FROM `college_student` WHERE UIN = " . $row['UIN'];
+    $sql = "SELECT * FROM `college_student` WHERE UIN = " . $value;
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
