@@ -13,8 +13,8 @@
     </head>
 
     <ul>
-      <li><a href="authentication.php?UIN=<?php echo $UIN; ?>">Authentication</a></li>
-      <li><a href="programmanagement.php?UIN=<?php echo $UIN; ?>">Program Management</a></li>
+      <li><a href="authentication/authentication.php?UIN=<?php echo $UIN; ?>">Authentication</a></li>
+      <li><a href="programmanagement/programmanagement.php?UIN=<?php echo $UIN; ?>">Program Management</a></li>
       <li><a href="progresstracking/progresstracking.php?UIN=<?php echo $UIN; ?>">Progress Tracking</a></li>
       <li><a href="document.php?UIN=<?php echo $UIN; ?>">Document Management</a></li>
       <li style="float:right"><a href="../login.php">Logout</a></li>
