@@ -59,7 +59,7 @@ SET Gender = '$Gender', Hispanic_Latino = '$Hispanic_Latino', Race = '$Race', US
 WHERE UIN = $UIN"; 
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: http://localhost/csce-310-project/students/authentication/authentication.php?UIN=$UIN");
+    header("Location: students/authentication/authentication.php?UIN=$UIN");
     exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

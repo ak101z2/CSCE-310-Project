@@ -38,7 +38,7 @@ try {
 
     // Commit the transaction
     $conn->commit();
-    header("Location: http://localhost/csce-310-project/admin/authentication/authentication.php?UIN=$UIN");
+    header("Location: admin/authentication/authentication.php?UIN=$UIN");
 } catch (Exception $e) {
     // An error occurred, rollback the transaction
     $conn->rollback();

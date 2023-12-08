@@ -57,7 +57,7 @@ $sql = "INSERT INTO college_student (UIN, Gender, Hispanic_Latino, Race, US_Citi
 VALUES ('$UIN', '$Gender', '$Hispanic_Latino', '$Race', '$US_Citizen', '$First_Generation', '$DoB', '$GPA', '$Major', '$Minor1', '$Minor2', '$Expected_Graduation', '$School', '$Classification', '$Phone', '$Student_Type');";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: http://localhost/csce-310-project/login.php");
+    header("Location: login.php");
     exit;
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

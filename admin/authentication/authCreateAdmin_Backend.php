@@ -39,7 +39,7 @@ $sql = "INSERT INTO users (UIN, First_Name, M_Initial, Last_Name, Username, Pass
 VALUES ('$UIN', '$First_Name', '$M_Initial', '$Last_Name', '$Username', '$Passwords', 'Admin', '$Email', '$Discord_Name');";
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: http://localhost/csce-310-project/admin/authentication/authentication.php?UIN=$UINGET");
+    header("Location: admin/authentication/authentication.php?UIN=$UINGET");
     exit;
   } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

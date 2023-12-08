@@ -44,7 +44,7 @@ if ($conn->query($sql) === TRUE) {
   }
 
 if ($User_Type == 'Admin') {
-  header("Location: http://localhost/csce-310-project/admin/authentication/authentication.php?UIN=$UINGET");
+  header("Location: admin/authentication/authentication.php?UIN=$UINGET");
   exit;
 }
 
@@ -72,7 +72,7 @@ SET Gender = '$Gender', Hispanic_Latino = '$Hispanic_Latino', Race = '$Race', US
 WHERE UIN = $UIN"; 
 
 if ($conn->query($sql) === TRUE) {
-    header("Location: http://localhost/csce-310-project/admin/authentication/authentication.php?UIN=$UINGET");
+    header("Location: admin/authentication/authentication.php?UIN=$UINGET");
     exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

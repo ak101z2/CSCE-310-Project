@@ -17,7 +17,7 @@ session_start();
 $sql = "UPDATE `users` SET `Passwords` = '' WHERE `UIN` = '$_SESSION[DisableAccount]'";
 
 if ($conn->query($sql) === TRUE) {
-    header('Location: http://localhost/csce-310-project/login.php');
+    header('Location: login.php');
     exit;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
