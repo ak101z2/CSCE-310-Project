@@ -1,9 +1,6 @@
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-  session_start();
-  if ($_SESSION['User_Type'] != "Admin") {
-    header("Location: ../students/authentication.php?UIN=$UIN");
-  }
+  
   $type = isset($_GET['Type']) ? $_GET['Type'] : ''; // Gets Search Type
   $value = $_SESSION["$type"];
 ?>
@@ -18,9 +15,9 @@
 
     <ul>
       <li><a href="authentication.php?UIN=<?php echo $UIN; ?>">Authentication</a></li>
-      <li><a href="programmanagement.php?UIN=<?php echo $UIN; ?>">Program Management</a></li>
-      <li><a href="progresstracking.php?UIN=<?php echo $UIN; ?>">Progress Tracking</a></li>
-      <li><a href="eventmanagement.php?UIN=<?php echo $UIN; ?>">Event Management</a></li>
+      <li><a href="../programmanagement/programmanagement.php?UIN=<?php echo $UIN; ?>">Application Information Management</a></li>
+      <li><a href="../progresstracking/progresstracking.php?UIN=<?php echo $UIN; ?>">Progress Tracking</a></li>
+      <li><a href="../document.php?UIN=<?php echo $UIN; ?>">Document Management</a></li>
       <li style="float:right"><a href="../../login.php">Logout</a></li>
     </ul>
 
@@ -29,7 +26,7 @@
     $servername = "localhost";
     $username = "user";
     $password = "pass1";
-    $dbname = "CSCE310project";
+    $dbname = "csce310project";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);

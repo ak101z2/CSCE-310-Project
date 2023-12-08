@@ -1,9 +1,6 @@
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-  session_start();
-  if ($_SESSION['User_Type'] != "Admin") {
-    header("Location: ../students/authentication.php?UIN=$UIN");
-  }
+  
   $type = isset($_GET['Type']) ? $_GET['Type'] : ''; // Gets Search Type
   $value = $_POST["$type"];
 
@@ -16,7 +13,7 @@
 $servername = "localhost";
 $username = "user";
 $password = "pass1";
-$dbname = "CSCE310project";
+$dbname = "csce310project";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
