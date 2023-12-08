@@ -1,9 +1,6 @@
 <?php
   $UIN = isset($_GET['UIN']) ? $_GET['UIN'] : ''; // Gets UIN
-  session_start();
-  if ($_SESSION['User_Type'] != "Admin") {
-    header("Location: ../students/authentication.php?UIN=$UIN");
-  }
+  
 ?>
 
 <html>
