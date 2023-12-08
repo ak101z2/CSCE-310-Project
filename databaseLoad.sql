@@ -130,7 +130,7 @@ CREATE TABLE Applications (
 
 -- Document Table
 CREATE TABLE Documentation (
-    Doc_Num INT PRIMARY KEY,
+    Doc_Num INT PRIMARY KEY AUTO_INCREMENT,
     App_Num INT,
     Link VARCHAR(255),
     Doc_Type VARCHAR(255),
@@ -139,7 +139,7 @@ CREATE TABLE Documentation (
 
 -- Event Table
 CREATE TABLE Events (
-    Event_ID INT PRIMARY KEY,
+    Event_ID INT PRIMARY KEY AUTO_INCREMENT,
     UIN INT,
     Program_Num INT,
     Start_Date DATE,
@@ -154,7 +154,7 @@ CREATE TABLE Events (
 
 -- Event Tracking Table
 CREATE TABLE Event_Tracking (
-    ET_Num INT PRIMARY KEY,
+    ET_Num INT PRIMARY KEY AUTO_INCREMENT,
     Event_ID INT,
     UIN INT,
     FOREIGN KEY (Event_ID) REFERENCES Events(Event_ID),
