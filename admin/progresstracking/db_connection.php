@@ -6,7 +6,7 @@
   $servername = "localhost";
   $username = "user";
   $password = "pass1";
-  $dbname = "csce310project_test";
+  $dbname = "csce310project";
 
   $conn = new mysqli($servername, $username, $password, $dbname);
 

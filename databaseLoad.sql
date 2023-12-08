@@ -84,9 +84,10 @@ CREATE TABLE Certification (
 
 -- Programs Table
 CREATE TABLE Programs (
-    Program_Num INT PRIMARY KEY,
+    Program_Num INT AUTO_INCREMENT PRIMARY KEY,
     Name VARCHAR(255),
-    Description VARCHAR(255)
+    Description VARCHAR(255),
+    IsVisible BOOLEAN DEFAULT 1
 );
 
 -- Cert Enrollment Table
@@ -170,11 +171,19 @@ CREATE INDEX idx_Class_Enrollment ON Class_Enrollment(UIN);
 CREATE INDEX idx_Cert_Enrollment ON Cert_Enrollment(UIN);
 CREATE INDEX idx_Intern_App ON Intern_App (UIN);
 
+CREATE INDEX idx_programs_name ON Programs (Name);
+
+
 -- Views
 CREATE VIEW StudentPrograms AS
 SELECT p.Name AS ProgramName, t.UIN
 FROM programs p
 JOIN track t ON p.Program_Num = t.Program_Num;
+
+CREATE VIEW ActivePrograms AS
+SELECT Program_Num, Name, Description
+FROM Programs
+WHERE IsVisible = 1;
 
 -- Sample Data
 INSERT INTO `users` (`UIN`, `First_Name`, `M_Initial`, `Last_Name`, `Username`, `Passwords`, `User_Type`, `Email`, `Discord_Name`) VALUES
@@ -191,10 +200,10 @@ INSERT INTO `college_student` (`UIN`, `Gender`, `Hispanic_Latino`, `Race`, `US_C
 
 INSERT INTO `programs` (`Program_Num`, `Name`, `Description`) VALUES
 (0, 'CLDP', 'Commercial Law Development Program'),
-(1, 'VICEROY', 'Virtual Institutes for Cyber and Electromagnetic Spectrum Research and Employ'),
-(2, 'Pathways', 'Pathways'),
-(3, 'CyberCorps', 'Scholarship for Service (SFS)'),
-(4, 'CySP', 'DoD Cybersecurity Scholarship Program');
+(1, 'VICEROY', 'VICEROY trains future cyber leaders in critical defense technology areas, funded by the Office of the Undersecretary of Defense for Research and Engineering in collaboration with the Air Force Research Laboratory and Griffiss Institute.'),
+(2, 'Pathways', 'The TAMUS Pathways Student Research Symposium serves as a platform for undergraduate and graduate students from all Texas A&M University System institutions to showcase and network their research across various categories.'),
+(3, 'CyberCorps', 'Texas A&M University offers the Federal CyberCorps Scholarship for Service program, providing scholarships for Cybersecurity students with a post-graduation government service obligation.'),
+(4, 'CySP', 'The DoD Cybersecurity Scholarship Program recruits and retains qualified cybersecurity professionals, managed by the NSA on behalf of the Department of Defense.');
 
 INSERT INTO `classes` (`Class_ID`, `Name`, `Description`, `Type`) VALUES
 (0, 'Beginner Spanish', 'Beginner Spanish', 'Core'),
