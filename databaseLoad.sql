@@ -174,6 +174,19 @@ CREATE INDEX idx_Intern_App ON Intern_App (UIN);
 CREATE INDEX idx_programs_name ON Programs (Name);
 
 
+-- Indexes for Documentation Table
+CREATE INDEX idx_Documentation_App_Num ON Documentation(App_Num);
+CREATE INDEX idx_Documentation_Doc_Type ON Documentation(Doc_Type);
+
+-- Indexes for Events Table
+CREATE INDEX idx_Events_UIN ON Events(UIN);
+CREATE INDEX idx_Events_Program_Num ON Events(Program_Num);
+CREATE INDEX idx_Events_Event_Type ON Events(Event_Type);
+
+-- Indexes for Event_Tracking Table
+CREATE INDEX idx_Event_Tracking_Event_ID ON Event_Tracking(Event_ID);
+CREATE INDEX idx_Event_Tracking_UIN ON Event_Tracking(UIN);
+
 
 
 -- Views
@@ -190,6 +203,14 @@ WHERE IsVisible = 1;
 CREATE VIEW auth_view AS
 SELECT UIN, First_Name, Last_Name
 FROM users;
+
+CREATE VIEW EventUserProgram AS
+SELECT Events.Event_ID, Users.Username AS UserName, Programs.Name AS ProgramName,
+       Events.Start_Date, Events.Start_Time, Events.Location, Events.End_Date,
+       Events.End_Time, Events.Event_Type
+FROM Events
+JOIN Users ON Events.UIN = Users.UIN
+JOIN Programs ON Events.Program_Num = Programs.Program_Num;
 
 
 -- Sample Data
