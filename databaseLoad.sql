@@ -174,6 +174,8 @@ CREATE INDEX idx_Intern_App ON Intern_App (UIN);
 CREATE INDEX idx_programs_name ON Programs (Name);
 
 
+
+
 -- Views
 CREATE VIEW StudentPrograms AS
 SELECT p.Name AS ProgramName, t.UIN
@@ -184,6 +186,11 @@ CREATE VIEW ActivePrograms AS
 SELECT Program_Num, Name, Description
 FROM Programs
 WHERE IsVisible = 1;
+
+CREATE VIEW auth_view AS
+SELECT UIN, First_Name, Last_Name
+FROM users;
+
 
 -- Sample Data
 INSERT INTO `users` (`UIN`, `First_Name`, `M_Initial`, `Last_Name`, `Username`, `Passwords`, `User_Type`, `Email`, `Discord_Name`) VALUES
